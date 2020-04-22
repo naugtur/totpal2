@@ -35,6 +35,10 @@ const head = `
     </head>
 `
 
+function pickRandom(list){
+    return list[Math.floor(Math.random() * list.length)]
+}
+
 app.listen(3000, err => {
     if (err) throw err
     console.log(`> http://localhost:3000`)
@@ -52,8 +56,17 @@ app.get('/', (req, res) => {
     res.redirect(`/${Math.random().toFixed(5).substring(2)}`);
 });
 app.get('/:game/pick', (req, res) => {
-    const result = data[req.game][Math.floor(Math.random() * data[req.game].length)]
+    const result = pickRandom(data[req.game])
     res.send(`${head}<h1>${result}</h1><a href="/${req.game}?clear=y">clear</a>&nbsp;<a href="/${req.game}">back</a>`)
+})
+app.get('/trustmeimrandom', (req, res) => {
+    const list = ["A", "B", "C"];
+    const scores = { A: 0, B: 0, C: 0 };
+    
+    for (let i = 0; i < 10000000; i++) {
+        scores[pickRandom(list)]++
+    }
+    res.send(JSON.stringify(scores))
 })
 app.get('/:game', (req, res) => {
     if (req.query.entry) {
@@ -82,3 +95,4 @@ app.get('/:game', (req, res) => {
     `)
 
 });
+
