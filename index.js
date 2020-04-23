@@ -11,7 +11,7 @@ const styles = `
     font-size: 15pt;
     text-align: center;
     margin: 1em auto;
-    padding: 0.5em;
+    padding: 0.3em;
     color:#333;
 }
 input, a {
@@ -20,8 +20,8 @@ input, a {
     text-decoration: none;
     cursor: pointer;
 }
-small * {
-    font-size: 0.8em;
+small, small * {
+    font-size: 0.7em;
     border: none;
 }
 </style>
@@ -80,6 +80,7 @@ app.get('/:game', (req, res) => {
     res.send(`
     ${head}
     <h2>Two of these people are lying.</h2>
+    <small>Game ${req.game}</small>
     <form method="GET">
     <input type="text" name="entry" autofocus>
     &nbsp;
